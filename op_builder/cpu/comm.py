@@ -26,7 +26,7 @@ class CCLCommBuilder(CPUOpBuilder):
         return includes
 
     def cxx_args(self):
-        return ['-O2', '-fopenmp']
+        return ['-O2', '-fopenmp', '-march=native']
 
     def is_compatible(self, verbose=False):
         # TODO: add soft compatibility check for private binary release.

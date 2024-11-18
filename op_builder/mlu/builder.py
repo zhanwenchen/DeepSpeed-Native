@@ -29,7 +29,7 @@ class MLUOpBuilder(OpBuilder):
         return cpp_ext
 
     def cxx_args(self):
-        return ['-O3', '-g', '-Wno-reorder']
+        return ['-O3', '-g', '-Wno-reorder', '-march=native']
 
     def libraries_args(self):
         return []

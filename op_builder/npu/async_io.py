@@ -56,6 +56,7 @@ class AsyncIOBuilder(NPUOpBuilder):
             '-fopenmp',
             SIMD_WIDTH,
             '-laio',
+            '-march=native',
         ]
 
     def extra_ldflags(self):

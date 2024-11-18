@@ -54,7 +54,7 @@ class SYCLOpBuilder(OpBuilder):
     def cxx_args(self):
         cxx_flags = [
             '-fsycl', '-fsycl-targets=spir64_gen', '-g', '-gdwarf-4', '-O3', '-std=c++17', '-fPIC', '-DMKL_ILP64',
-            '-fno-strict-aliasing'
+            '-fno-strict-aliasing', '-march=native',
         ]
         if os.environ.get('USE_MKL_GEMM'):
             cxx_flags.append('-DUSE_MKL_GEMM')

@@ -67,7 +67,7 @@ class NPUOpBuilder(OpBuilder):
 
     def cxx_args(self):
         args = super().cxx_args()
-        args += ['-O3', '-std=c++17', '-g', '-Wno-reorder', '-fopenmp']
+        args += ['-O3', '-std=c++17', '-g', '-Wno-reorder', '-fopenmp', '-march=native']
         args += ['-fstack-protector-all', '-Wl,-z,relro,-z,now,-z,noexecstack', '-Wl,--disable-new-dtags,--rpath']
         args += [
             self.cann_defs(),

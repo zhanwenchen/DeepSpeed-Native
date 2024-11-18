@@ -25,7 +25,7 @@ class SparseAttnBuilder(OpBuilder):
         return ['csrc/sparse_attention/utils.cpp']
 
     def cxx_args(self):
-        return ['-O2', '-fopenmp']
+        return ['-O2', '-fopenmp', '-fPIC', '-march=native']
 
     def is_compatible(self, verbose=False):
         # Check to see if llvm and cmake are installed since they are dependencies

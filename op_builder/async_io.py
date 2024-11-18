@@ -56,7 +56,7 @@ class AsyncIOBuilder(TorchCPUOpBuilder):
         if not (TORCH_MAJOR >= 2 and TORCH_MINOR >= 1):
             args.remove('-std=c++17')
             args.append('-std=c++14')
-        args += ['-Wall', '-O0', '-shared', '-fPIC', '-Wno-reorder']
+        args += ['-Wall', '-O0', '-shared', '-fPIC', '-Wno-reorder', '-march=native']
         return args
 
     def extra_ldflags(self):

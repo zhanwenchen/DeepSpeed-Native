@@ -25,7 +25,7 @@ class GDSBuilder(AsyncIOBuilder):
         return self.lib_sources() + ['csrc/gds/py_lib/py_ds_gds.cpp']
 
     def cxx_args(self):
-        return super().cxx_args() + ['-lcufile']
+        return super().cxx_args() + ['-lcufile', '-march=native']
 
     def include_paths(self):
         import torch
