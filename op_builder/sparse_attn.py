@@ -59,31 +59,31 @@ class SparseAttnBuilder(OpBuilder):
 
         TORCH_MAJOR = int(torch.__version__.split('.')[0])
         TORCH_MINOR = int(torch.__version__.split('.')[1])
-        torch_compatible = (TORCH_MAJOR == 1 and TORCH_MINOR >= 5)
+        torch_compatible = (TORCH_MAJOR == 1 and TORCH_MINOR >= 5) or TORCH_MAJOR >= 2
         if not torch_compatible:
             if verbose:
                 self.warning(
-                    f'{self.NAME} requires a torch version >= 1.5 and < 2.0 but detected {TORCH_MAJOR}.{TORCH_MINOR}')
+                    f'{self.NAME} requires a torch version >= 1.5 but detected {TORCH_MAJOR}.{TORCH_MINOR}')
         try:
             import triton
         except ImportError:
             # auto-install of triton is broken on some systems, reverting to manual install for now
             # see this issue: https://github.com/microsoft/DeepSpeed/issues/1710
             if verbose:
-                self.warning(f"please install triton==1.0.0 if you want to use sparse attention")
+                self.warning(f"please install triton if you want to use sparse attention")
             return False
 
         if pkg_version:
             installed_triton = pkg_version.parse(triton.__version__)
-            triton_mismatch = installed_triton != pkg_version.parse("1.0.0")
+            triton_mismatch = installed_triton >= pkg_version.parse("1.0.0")
         else:
             installed_triton = triton.__version__
-            triton_mismatch = installed_triton != "1.0.0"
+            triton_mismatch = installed_triton >= "1.0.0"
 
         if triton_mismatch:
             if verbose:
                 self.warning(
-                    f"using untested triton version ({installed_triton}), only 1.0.0 is known to be compatible")
+                    f"using untested triton version ({installed_triton}), only >= 1.0.0 is known to be compatible")
             return False
 
         return super().is_compatible(verbose) and torch_compatible and cuda_compatible
